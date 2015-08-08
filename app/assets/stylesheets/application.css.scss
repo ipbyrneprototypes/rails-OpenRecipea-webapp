@@ -1,0 +1,568 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require 'masonry/basic'
+ *= require 'masonry/transitions'
+ *= require_tree .
+ *= require_self
+ */
+@import "bootstrap-sprockets";
+$grid-float-breakpoint: 991px;
+@import "bootstrap";
+
+
+@mixin box-shadow {
+	-webkit-box-shadow: rgba(0, 0, 0, 0.09) 0 2px 0;
+	-moz-box-shadow: rgba(0, 0, 0, 0.09) 0 2px 0;
+	box-shadow: rgba(0, 0, 0, 0.09) 0 2px 0;
+}
+
+
+$black: #333;
+
+
+$desktop: "(min-width: 992px)";
+$tablet: "(max-width: 768px)";
+$mobile: "(max-width: 991px)";
+
+$darkprimary: #689F38 ;
+$primary: #8BC34A ;
+$lightprimary: #DCEDC8 ;
+$texticons:#212121 ;
+$accent:#9E9E9E ;
+$primarytext:#212121 ;
+$secondarytext:#727272 ;
+$divider:#B6B6B6;
+$offwhite: #EAEAEA;
+$offwhite2: #f8f8f8;
+$offwhite3: #e7e7e7;
+
+body {
+  padding-top: 70px;
+  background: -webkit-linear-gradient(90deg, #ADD100 10%, #7B920A 90%); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(90deg, #ADD100 10%, #7B920A 90%); /* FF3.6+ */
+  background:     -ms-linear-gradient(90deg, #ADD100 10%, #7B920A 90%); /* IE10 */
+  background:      -o-linear-gradient(90deg, #ADD100 10%, #7B920A 90%); /* Opera 11.10+ */
+  background:         linear-gradient(90deg, #ADD100 10%, #7B920A 90%); /* W3C */     
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: "Brandon Grotesque","Helvetica Neue", Helvetica, sans-serif;
+}
+
+p {
+  font-family: "Petrona","Helvetica Neue", Helvetica, sans-serif;
+}
+
+a, a:hover {
+  color: $primarytext;
+}
+
+
+.btn {
+  border-radius: 2px;
+}
+
+.main_content {
+	padding: 0 0 50px 0;
+}
+
+.alert {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 5px;
+	@include box-shadow;
+	background: white;
+	font-weight: bold;
+}
+
+.navbar {
+	margin-bottom: 50px;
+	@include box-shadow;
+	border: none;
+	.navbar-brand {
+		text-transform: uppercase;
+		letter-spacing: -1px;
+		font-weight: bold;
+		font-size: 25px;
+		a {
+			color: $darkprimary;
+		}
+	}
+}
+
+.recipe {
+	background: white;
+	border-radius: 2px;
+	margin-bottom: 40px;
+	.image_wrapper {
+		max-width: 100%;
+		border-radius: 5px 5px 0 0;
+		overflow: hidden;
+	}
+	img {
+		width: 100%;
+		-webkit-transition: all .3s ease-out;
+	  -moz-transition: all .3s ease-out;
+	  -o-transition: all .3s ease-out;
+      transition: all .3s ease-out;
+		&:hover {
+			transform: scale(1.075);
+		}
+	}
+	h2 {
+		padding: 5px 5%;
+		margin: 0;
+		font-size: 20px;
+		font-weight: normal;
+		line-height: 1.5;
+		a {
+			color: $darkprimary;
+		}
+	}
+}
+
+#recipe_top {
+	margin-bottom: 50px;
+}
+
+#recipe_info, #ingredients, #directions {
+	background: white;
+	@include box-shadow;
+	min-height: 360px;
+	border-radius: 2px;
+	padding: 2em 8%;
+}
+
+.recipe_image {
+	max-width: 100%;
+    margin-bottom: 30px;
+	border-radius: 2px;
+
+}
+.edit_recipe_image {
+	max-width: 100%;
+    margin-bottom: 30px;
+	border-radius: 2px;
+  	@include box-shadow;
+}
+
+#recipe_info {
+	h1 {
+		font-size: 36px;
+		font-weight: normal;
+		color: $darkprimary;
+	}
+	.description {
+		color: $secondarytext;
+		font-size: 20px;
+	}
+}
+
+
+#ingredients, #directions {
+	margin-bottom: 30px;
+    margin-top: 30px;
+	ul, ol {
+		padding-left: 18px;
+		li {
+			padding: 1em 0;
+			border-bottom: 1px solid $offwhite;
+		}
+	}
+}
+
+.form-inline {
+	margin-top: 15px;
+}
+.form-input {
+	width: 65% !important;
+	float: left;
+}
+.form-button {
+	float: left;
+	width: 30% !important;
+	margin-left: 5%;
+}
+.add-button {
+	margin-top: 25px;
+}
+
+#recipe_info_2 {
+	background: white;
+	@include box-shadow;
+	min-height: 200px;
+	border-radius: 2px;
+	padding: 2em 8%;
+    margin-bottom: 30px;
+}
+
+#random_recipe_info {
+	background: white;
+	@include box-shadow;
+	min-height: 200px;
+	border-radius: 2px;
+	padding: 1em 8%;
+    margin-bottom: 30px;
+    h1 a, h2 a, h3 a, h4 a {
+      font-weight: normal;
+      font-size: .75em;
+      color: $darkprimary;
+    }
+}
+
+#profile_info {
+	background: white;
+	@include box-shadow;
+	border-radius: 2px;
+	padding: 1em;
+    margin-bottom: 30px;
+}
+
+#edit_info {
+	background: white;
+	@include box-shadow;
+	border-radius: 2px;
+	padding: 1em;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#edit_recipe_info {
+	background: $offwhite;
+	@include box-shadow;
+	border-radius: 2px;
+	padding: 1em;
+    margin-bottom: 30px;
+}
+#cookbook_info {
+	background: $lightprimary;
+	@include box-shadow;
+	border-radius: 2px;
+	padding: 1em;
+    margin-bottom: 30px;
+}
+
+.about-me {
+  min-height: 476px;
+}
+
+#recipesmasonryindex {
+  margin: 0 auto;
+  float: none;
+  width: 100%;
+  margin-left: 2.5%;
+  @media screen and (max-width: 1200px) {
+    margin-left: 8%;
+  }
+  @media screen and (max-width: 991px) {
+    margin-left: 12%;
+  }
+  @media screen and (max-width: 768px) {
+    margin-left: 12.75%;
+  }
+  @media screen and (max-width: 641px) {
+    margin-left: 5%;
+  }
+  @media screen and (max-width: 584px) {
+    margin-left: 25%;
+  }
+  @media screen and (max-width: 541px) {
+    margin-left: 22.5%;
+  }
+  .box {
+	  margin: 10px;
+	  width: 250px;
+	  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.22);
+	  border-radius: 2px;
+	  text-align: center;
+      display: inline;
+      img {
+            margin-bottom: 5px;
+            margin: auto;
+            width: 7.5%;
+            height: auto;
+            display: inline;
+          }
+	  .thumb {
+          margin-top: 12.5px;
+          width: 90%;
+          height: auto;
+      }
+      
+	  .user {
+	  	font-size: 12px;
+	  	border-top: 1px solid $offwhite;
+			padding: 15px;
+			margin: 0;
+	  }
+	}
+}
+
+#recipesmasonry {
+  margin: 0 auto;
+  float: none;
+  width: 100%;
+  margin-left: 2.5%;
+  @media screen and (max-width: 1200px) {
+    margin-left: 6.75%;
+  }
+  @media screen and (max-width: 991px) {
+    margin-left: 12%;
+  }
+  @media screen and (max-width: 768px) {
+    margin-left: 12.75%;
+  }
+  @media screen and (max-width: 641px) {
+    margin-left: 5%;
+  }
+  @media screen and (max-width: 584px) {
+    margin-left: 25%;
+  }
+  @media screen and (max-width: 541px) {
+    margin-left: 22.5%;
+  }
+  .box {
+	  margin: 10px;
+	  width: 250px;
+	  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.22);
+	  border-radius: 2px;
+	  text-align: center;
+      display: inline-table;
+      img {
+            margin-bottom: 5px;
+            margin: auto;
+            width: 7.5%;
+            height: auto;
+            display: inline-block;
+          }
+	  .thumb {
+          margin-top: 12.5px;
+          width: 90%;
+          height: auto;
+      }
+      
+	  .user {
+	  	font-size: 12px;
+	  	border-top: 1px solid $offwhite;
+			padding: 15px;
+			margin: 0;
+	  }
+	}
+}
+
+#recipesmasonry2 {
+  margin: 0 auto;
+  float: none;
+  width: 100%;
+  margin-left: 2.5%;
+  @media screen and (max-width: 1200px) {
+    margin-left: 6.75%;
+  }
+  @media screen and (max-width: 991px) {
+    margin-left: 12%;
+  }
+  @media screen and (max-width: 768px) {
+    margin-left: 12.75%;
+  }
+  @media screen and (max-width: 641px) {
+    margin-left: 5%;
+  }
+  @media screen and (max-width: 584px) {
+    margin-left: 25%;
+  }
+  @media screen and (max-width: 541px) {
+    margin-left: 22.5%;
+  }
+  .box {
+	  margin: 10px;
+	  width: 250px;
+	  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.22);
+	  border-radius: 2px;
+	  text-align: center;
+      display: inline-table;
+      img {
+            margin-bottom: 5px;
+            margin: auto;
+            width: 7.5%;
+            height: auto;
+            display: inline-block;
+          }
+	  .thumb {
+          margin-top: 12.5px;
+          width: 90%;
+          height: auto;
+      }
+      
+	  .user {
+	  	font-size: 12px;
+	  	border-top: 1px solid $offwhite;
+			padding: 15px;
+			margin: 0;
+	  }
+	}
+}
+
+ul {
+  -webkit-padding-start: 0px;
+}
+
+
+
+@media #{$desktop} {
+  .categories {
+    float: none;
+    text-align: center;
+    li {
+      display: inline;
+      text-align: center;
+      float: none;
+    }
+    li a {
+      display: inline-block;
+      padding: 0;
+    }
+  }
+}
+
+@media #{$tablet} {
+  .categories {
+    float: none;
+    text-align: center;
+    .btn {width:100%;}
+    li {
+      display: inline;
+      text-align: center;
+      float: none;
+    }
+    li a {
+      display: inline-block;
+    }
+  }
+  .searchform {
+  margin-right: 15px;
+}
+  .searchformenter {
+  text-align:center;
+}
+}
+@media #{$mobile} {
+  .categories {
+    float: none;
+    text-align: center;
+    .btn {width:100%;}
+    li {
+      display: inline;
+      text-align: center;
+      float: none;
+    }
+    li a {
+      display: inline-block;
+      text-align: center;
+    }
+  }
+  .searchform {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+  .searchformenter {
+    text-align:center;
+  }
+}
+
+.searchform {
+  margin-right: 15px;
+}
+
+
+.cbspan {
+  color: $accent;
+  font-size: 10px;
+  padding-bottom: 10px;
+}
+
+.recipepanel {
+  p {
+    margin-bottom: 5px;
+  }
+}
+
+.navbuttons {
+  li a {
+    padding: 5px;
+    margin: 2px;
+  }
+}
+
+.searchlabel {
+  text-align: center; 
+  padding-bottom: 0px; 
+  padding-top: 18px;
+}
+.searchpanel {
+  height: 125px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+}
+
+
+.logo {
+  img {
+    margin-top: 4.5px;
+    display: inline-block;
+    width: 30rem;
+    float: left;
+  }
+}
+
+.navbar-default {
+  background-color: $offwhite2;
+  border-color: $offwhite3;
+}
+
+
+.searchformenter {
+  text-align:center;
+  margin-right: 5px;
+}
+
+.followstats {
+  float: left;
+  text-align: center;
+}
+
+.followstats1 {
+  float: right;
+  text-align: center;
+}
+
+.indexstars {
+  img {
+    width: 20%;
+    height: 100%
+  }
+}
+
+.btn-default {
+  color: $primarytext;
+  background-color: $lightprimary;
+  border-color: $accent;
+}
+
+.btn-default:hover, .btn-default:active  {
+  color: $primarytext;
+  background-color: $darkprimary;
+  border-color: $accent;
+}
+
+@import "welcome.css.scss";

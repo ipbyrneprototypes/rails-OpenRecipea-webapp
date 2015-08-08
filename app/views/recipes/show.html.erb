@@ -1,0 +1,145 @@
+<div class="container">
+
+  <div class="main-content">
+    <div id="recipe_top row" class="row">
+      <div class="col-md-3" style="text-align:center;">
+        <%= image_tag @recipe.image.url(:medium), class: "edit_recipe_image" %>
+        <div id="recipe_info_2">
+          <div class="star-rating" data-score= <%= @avg_review %> ></div>
+          <em><%= pluralize(@reviews.length, 'Review' ) %></em>
+          <br>
+          <span class="cbspan">Category: <%= link_to @recipe.category.name, recipes_path(category: @recipe.category.name) %></span>
+          <p>Created by <%= link_to @recipe.user.name, user_path(@recipe.user) %></p>
+          <p><%= time_ago_in_words(@recipe.created_at) %> ago.</p>
+
+
+          <% if user_signed_in? %>
+            <% if current_user.voted_up_on? @recipe %>
+              <p><i class="fa fa-heart"></i> <%= pluralize(@recipe.get_upvotes.size, 'Like' ) %></p>
+              <%= link_to "Unlike", dislike_recipe_path(@recipe),  method: :get, class: "btn btn-default" %>
+            <% else %>
+              <p><i class="fa fa-heart-o"></i> <%= pluralize(@recipe.get_upvotes.size, 'Like' ) %></p>
+              <%= link_to "Like", like_recipe_path(@recipe),  method: :get, class: "btn btn-default" %>
+            <% end %>
+          <% else %>
+            <p><i class="fa fa-heart-o"></i> <%= pluralize(@recipe.get_upvotes.size, 'Like' ) %></p>
+          <% end %>
+        </div>
+
+
+      </div>
+      <div class="col-md-7">
+        <div id="recipe_info">
+          <h1><%= @recipe.title%></h1>
+          <span class="cbspan">Category: <%= link_to @recipe.category.name, recipes_path(category: @recipe.category.name) %></span>
+          <p class="description"><%= simple_format(@recipe.description) %></p>
+        </div>
+      </div>
+
+
+    <div class="col-md-2">
+      <div id="random_recipe_info" style="text-align:center; margin-top: 30px;">
+        <h5>Random Recipe</h5>
+        <%= link_to (image_tag @random_recipe.image.url(:thumb)), recipe_path(@random_recipe) %>
+        <h4><%= link_to truncate(@random_recipe.title, length: 30), recipe_path(@random_recipe) %></h4>
+        <span class="cbspan">Category: <%= link_to @random_recipe.category.name, recipes_path(category: @random_recipe.category.name) %></span>
+        <p><i class="fa fa-comments"></i> <%= pluralize(@random_recipe.reviews.length, 'Review' ) %></p>
+        <% if user_signed_in? %>  
+          <% if current_user.voted_up_on? @random_recipe %>
+              <p><i class="fa fa-heart"></i> <%= pluralize(@random_recipe.get_upvotes.size, 'Like' ) %></p>
+              <span class="cbspan"><%= link_to "Unlike", dislike_recipe_path(@random_recipe),  method: :get %></span>
+              <br>
+          <% else %>
+            <p><i class="fa fa-heart"></i> <%= pluralize(@random_recipe.get_upvotes.size, 'Like' ) %></p>
+            <span class="cbspan"><%= link_to "Like", like_recipe_path(@random_recipe),  method: :get %></span>
+            <br>
+          <% end %>
+        <% else %>
+          <p><i class="fa fa-heart-o"></i> <%= pluralize(@random_recipe.get_upvotes.size, 'Like' ) %></p>  
+        <% end %>
+        <span class="cbspan">Created <%= link_to @random_recipe.user.name, user_path(@random_recipe.user) %></span>
+      </div>
+    </div>    
+  </div>
+
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div id="ingredients">
+          <h2>Ingredients:</h2>
+          <ul>
+            <% @recipe.ingredients.each do |ingredient| %>
+            <li><%= simple_format(ingredient.name) %></li>
+            <% end %>
+          </ul>  
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div id="directions">
+          <h2>Directions:</h2>
+          <ul>
+            <% @recipe.directions.each do |direction| %>
+            <li><%= simple_format(direction.step) %></li>
+            <% end %>
+          </ul>  
+        </div>
+      </div>
+    </div>
+    
+    <div style="text-align:center;">
+      <%= link_to 'Back', recipes_path, class: "btn btn-default" %> 
+      <% if user_signed_in? && @recipe.user.id === current_user.id %>
+        <%= link_to 'Edit', edit_recipe_path(@recipe), class: "btn btn-default" %> 
+        <%= link_to 'Delete', recipe_path(@recipe), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-default" %>
+      <% end %>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-12" style="margin-left: auto; margin-right: auto;">
+        <div class="review_title" id="recipe_info">
+          <h1 style="text-align:center;">Reviews</h1>
+          <% if @reviews.blank? %>
+            <h3 style="text-align:center;">Now reviews yet. Would you like to write the first?</h3>
+            <div style="text-align:center;">
+              <%= link_to "Write a Review", new_recipe_review_path(@recipe), class: "btn btn-default" %>
+            </div>
+          <% else %>
+            <div style="text-align:center;">
+              <%= link_to "Write a Review", new_recipe_review_path(@recipe), class: "btn btn-default" %>
+            </div>
+            <% @reviews.each do |review| %>
+              <div class="reviews" style="width: 95%; margin-left: auto; margin-right: auto; padding-bottom: 10px;">
+                <div class="star-rating" data-score= <%= review.rating %> ></div>
+                <p><%= simple_format(review.comment) %></p>
+                <span class="cbspan">By <%=link_to review.user.name, user_path(review.user) %></span>
+                <% if user_signed_in? && review.user.id === current_user.id %>
+                  <%= link_to "Delete", [review.recipe, review], method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-default", style: "float: right; margin-left: 5px;" %>
+                  <%= link_to "Edit", edit_recipe_review_path(review.recipe, review), class: "btn btn-default", style: "float: right;" %>
+                <% end %>
+                <br>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+
+  
+  <div>
+  <br>
+  </div>
+
+</div>  
+  <script>
+    $('.star-rating').raty({
+      path: 'http://mystache.s3.amazonaws.com/assets/',
+      readOnly: true,
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script>
+   

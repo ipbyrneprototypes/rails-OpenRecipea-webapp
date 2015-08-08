@@ -1,0 +1,28 @@
+<div class="container">
+    <div id="edit_info" style="width: 328px;">
+      <h2 style="text-align:center;">Sign Up</h2>
+
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs" style="text-align:center;">
+          <%= f.input :avatar, required: false, input_html: {class:"form-control", style: "width:300px;"} %>
+          <%= f.input :name, required: true, autofocus: true, input_html: {class: "form-control", style: "width:300px;"} %>
+          <%= f.input :email, required: true, autofocus: true, input_html: {class: "form-control", style: "width:300px;"} %>
+          <%= f.input :password, required: true, input_html: {class: "form-control", style: "width:300px;"}, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+          <%= f.input :password_confirmation, required: true, input_html: {class: "form-control", style: "width:300px;"} %>
+          <%= f.input :about, label: "About Me",  autofocus: true, input_html: {class: "form-control", style: "width:300px;"} %>
+          <%= f.input :website,  autofocus: true, input_html: {class: "form-control", style: "width:300px;"} %>
+          <%= f.input :twitter, autofocus: true, input_html: {class: "form-control", style: "width:300px;"} %>
+          <%= f.input :facebook, autofocus: true, input_html: {class: "form-control", style: "width:300px;"} %>
+        </div>
+        <br>
+        <div class="form-actions" style="text-align:center">
+          <%= f.button :submit, "Sign up" %>
+        </div>
+      <% end %>
+      <div style="text-align:center;"
+        <br>
+        <%= render "devise/shared/links" %>
+      </div>
+</div>

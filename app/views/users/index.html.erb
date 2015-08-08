@@ -1,0 +1,112 @@
+<div class="container" id="edit_recipe_info">
+
+        <h1 style="text-align:center; text-decoration: underline;">Timeline</h1>
+        <h2 style="text-align:center;">Categories</h2>
+        <br>
+       <div style="text-algin:center">
+        <ul class="categories">
+          <div class="btn-group">
+            <li style="margin-bottom: 4px;" class="btn btn-default"><%= link_to "All", users_path %></li>
+            <% Category.all.each do |category| %>
+            <li style="margin-bottom: 4px;" class="btn btn-default"><%= link_to category.name, users_path(category: category.name) %></li>
+            <% end %>
+            </div>
+          </ul>
+        </div>
+        <br>
+        <div class="row transitions-enabled">
+        <div id="recipesmasonry" class="recipepanel">
+         <% @likedusers.each do |user| %>
+          <% @recipes.each do |recipe| %>
+
+            <% if recipe.privacy.id === 1 %>
+              <% if @user.voted_up_on? user %>
+                <% if user.id === recipe.user.id %>
+                  <div class="box panel panel-default">
+                    <div class="recipe" style="max-height: 360px; min-height: 360px;">
+                      <div class="image_wrapper">
+                        <%= link_to recipe do %>
+                          <%= image_tag recipe.image.url(:medium), class: "thumb" %>
+                        <% end %>
+                      </div>
+                      <div style="text-align:center;">
+                        <h2><%= link_to truncate(recipe.title, length: 30), recipe %></h2>
+                        <span class="cbspan">Category: <%= link_to recipe.category.name, users_path(category: recipe.category.name) %></span>
+                        <br>  
+                        <p><i class="fa fa-comments"></i> <%= pluralize(recipe.reviews.length, 'Review' ) %></p>
+                        <div class="star-rating indexstars" data-score= <%= recipe.reviews.average(:rating) %> ></div>
+                        <% if user_signed_in? %>  
+                          <% if current_user.voted_up_on? recipe %>
+                              <p><i class="fa fa-heart"></i> <%= pluralize(recipe.get_upvotes.size, 'Like' ) %></p>
+                              <span class="cbspan"><%= link_to "Unlike", dislike_recipe_path(recipe),  method: :get %></span>
+                              <br>
+                          <% else %>
+                            <p><i class="fa fa-heart"></i> <%= pluralize(recipe.get_upvotes.size, 'Like' ) %></p>
+                            <span class="cbspan"><%= link_to "Like", like_recipe_path(recipe),  method: :get %></span>
+                            <br>
+                          <% end %>
+                        <% else %>
+                          <p><i class="fa fa-heart-o"></i> <%= pluralize(recipe.get_upvotes.size, 'Like' ) %></p>  
+                        <% end %>
+                        <span class="cbspan">Created by <%= link_to recipe.user.name, user_path(recipe.user) %> <%= time_ago_in_words(recipe.created_at) %> ago.</span>
+                      </div>
+                    </div>
+                  </div>
+                <% end%>  
+              <% end %>
+            <% end %>
+
+            <% if recipe.privacy.id === 3 %>
+              <% if @user.voted_up_on? user %>
+                <% if user.voted_up_on? @user %>
+                  <% if user.id === recipe.user.id %>
+                    <div class="box panel panel-default">
+                      <div class="recipe" style="max-height: 360px; min-height: 360px;">
+                        <div class="image_wrapper">
+                          <%= link_to recipe do %>
+                            <%= image_tag recipe.image.url(:medium), class: "thumb" %>
+                          <% end %>
+                        </div>
+                        <div style="text-align:center;">
+                          <h2><%= link_to truncate(recipe.title, length: 30), recipe %></h2>
+                          <span class="cbspan">Category: <%= link_to recipe.category.name, users_path(category: recipe.category.name) %></span>
+                          <br>  
+                          <p><i class="fa fa-comments"></i> <%= pluralize(recipe.reviews.length, 'Review' ) %></p>
+                          <div class="star-rating indexstars" data-score= <%= recipe.reviews.average(:rating) %> ></div>
+                          <% if user_signed_in? %>  
+                            <% if current_user.voted_up_on? recipe %>
+                                <p><i class="fa fa-heart"></i> <%= pluralize(recipe.get_upvotes.size, 'Like' ) %></p>
+                                <span class="cbspan"><%= link_to "Unlike", dislike_recipe_path(recipe),  method: :get %></span>
+                                <br>
+                            <% else %>
+                              <p><i class="fa fa-heart"></i> <%= pluralize(recipe.get_upvotes.size, 'Like' ) %></p>
+                              <span class="cbspan"><%= link_to "Like", like_recipe_path(recipe),  method: :get %></span>
+                              <br>
+                            <% end %>
+                          <% else %>
+                            <p><i class="fa fa-heart-o"></i> <%= pluralize(recipe.get_upvotes.size, 'Like' ) %></p>  
+                          <% end %>
+                          <span class="cbspan">Created by <%= link_to recipe.user.name, user_path(recipe.user) %> <%= time_ago_in_words(recipe.created_at) %> ago.</span>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end%>  
+              <% end %>
+            <% end %>
+
+          <% end %>
+        <% end%>
+      </div>
+    </div>
+    </div>
+
+  <script>
+    $('.star-rating').raty({
+      path: 'http://mystache.s3.amazonaws.com/assets/',
+      readOnly: true,
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script>

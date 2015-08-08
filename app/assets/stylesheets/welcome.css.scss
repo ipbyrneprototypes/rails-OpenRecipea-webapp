@@ -1,0 +1,197 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$darkprimary: #689F38 ;
+$primary: #8BC34A ;
+$lightprimary: #DCEDC8 ;
+$texticons:#212121 ;
+$accent:#9E9E9E ;
+$primarytext:#212121 ;
+$secondarytext:#727272 ;
+$lighttext: #f8f8f8;
+$divider:#B6B6B6;
+$offwhite: #EAEAEA;
+$offwhite2: #f8f8f8;
+$offwhite3: #e7e7e7;
+
+@mixin box-shadow {
+	-webkit-box-shadow: rgba(0, 0, 0, 0.09) 0 2px 0;
+	-moz-box-shadow: rgba(0, 0, 0, 0.09) 0 2px 0;
+	box-shadow: rgba(0, 0, 0, 0.09) 0 2px 0;
+}
+
+@mixin bold_font {
+	font-family: "Brandon Grotesque","Helvetica Neue", Helvetica, sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.welcome {
+  border: 1px solid black;
+  border-radius: 2px;
+  background-color: black;
+  @include box-shadow;
+}
+
+#banner {
+	background-image: url(image_path("sandwich_background.jpg"));
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: top center;
+	width: 100%;
+	min-height: 500px;
+	display: table;
+	.banner_content {
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+		h1 {
+            @include bold_font;
+			color: $primarytext;
+			font-size: 3.5rem;
+			margin: 0;
+		}
+		p {
+			font-size: 1.5rem;
+			margin: 0 0 2.5rem 0;
+			color: $lighttext;
+		}
+	}
+}
+
+#testimonial {
+	text-align: center;
+	font-size: 1.5rem;
+	color: $primarytext;
+	padding: 3.5rem 0;
+    background-color: white;
+	.quote {
+		margin: 0 0 .5rem 0;
+	}
+	.name {
+        @include bold_font;
+		color: $primarytext;
+		margin: 0;
+		font-size: .85rem;
+	}
+}
+
+#callouts {
+	background-color: white;
+	width: 100%;
+	min-height: 400px;
+	display: table;
+	.callout_inner {
+		display: table-cell;
+		vertical-align: middle;
+        text-align: center;
+        font-size: 1.5rem;
+        color: $primarytext;
+        padding: 3.5rem 0;
+        background-color: white;
+	}
+	.callout {
+		text-align: center;
+		width: 33.3333%;
+		padding: 1.5rem 2.5%;
+		float: left;
+        i {
+          color: $primary;
+        }
+		h2 {
+            @include bold_font;
+			color: $primarytext;
+			margin-bottom: 0;
+		}
+		p {
+			color: $secondarytext;
+		}
+	}
+}
+
+#callouts1 {
+	background-image: url(image_path("pancake_background.jpg"));
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: top center;
+	width: 100%;
+	min-height: 400px;
+	display: table;
+	.callout_inner {
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.callout {
+		text-align: center;
+		width: 33.3333%;
+		padding: 1.5rem 2.5%;
+		float: left;
+        i {
+          color: $primary;
+        }
+		h2 {
+            @include bold_font;
+			color: $primarytext;
+			margin-bottom: 0;
+		}
+		p {
+			color: $lighttext;
+		}
+	}
+}
+
+#messhall {
+	background-image: url(image_path("messhall_background.jpg"));
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: top center;
+	width: 100%;
+	min-height: 400px;
+	display: table;
+    text-align: center;
+    font-size: 1.5rem;
+    color: $lighttext;
+    padding: 3.5rem 0;
+	.callout_inner {
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.callout {
+		text-align: center;
+		width: 33.3333%;
+		padding: 1.5rem 2.5%;
+		float: left;
+        i {
+          color: $primary;
+        }
+		h2 {
+            @include bold_font;
+			color: $lighttext;
+			margin-bottom: 0;
+		}
+		p {
+			color: $lighttext;
+		}
+	}
+}
+
+#bottom_cta {
+	text-align: center;
+	padding: 7.5rem 0;
+    background-color: white;
+	h2 {
+        @include bold_font;
+		color: $primarytext;
+		font-size: 3rem;
+		margin: 0;
+	}
+    i {
+      color: $primary;
+    }
+	p {
+			font-size: 1.25rem;
+			margin: 0 0 2.5rem 0;
+			color: $secondarytext;
+		}
+}

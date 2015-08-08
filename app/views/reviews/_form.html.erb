@@ -1,0 +1,34 @@
+<%= simple_form_for([@recipe, @review]) do |f| %>
+  <% if @review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" style="text-align:center;">
+    <div id="star-rating"></div>
+  </div>
+  <div class="field" style="text-align:center;">
+    <%= f.label :comment %><br>
+    <%= f.text_area :comment, required: true, class: "form-control" %>
+    <br>
+  </div>
+  <div class="actions">
+    <div style="text-align:center;">
+      <%= f.button :submit, class: "btn btn-default"%>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $('#star-rating').raty({
+    path: 'http://mystache.s3.amazonaws.com/assets/',
+    scoreName: 'review[rating]'
+  });
+</script>

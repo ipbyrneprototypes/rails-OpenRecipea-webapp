@@ -1,0 +1,55 @@
+<div class="container" id="edit_recipe_info">
+  
+    <div class="panel searchpanel">
+    <div class="recipe">
+    <h1 class="searchlabel">Following</h1>
+    <br>
+    </div>
+    </div>
+    <div class="col-md-12">
+    <div class="row transitions-enabled">
+    <div id="recipesmasonry" class="recipepanel">  
+    <% @likedusers.each do |user| %>
+      <% if @user.voted_up_on? user %>
+        <div class="box panel panel-default">
+              <div class="recipe" style="max-height: 325px; min-height: 325px;">
+                <div class="image_wrapper">
+                  <%= link_to user do %>
+                  <% if user.avatar.exists? %>
+                    <%= image_tag user.avatar.url(:thumb), class: "thumb" %>
+                  <% else %>
+                    <div style="text-align:center;">
+                      <h2><%= link_to "No picture has been been uploaded.", user %></h2>
+                    </div>
+                  <% end %>
+                  <% end %>
+                </div>
+                <div style="text-align:center;">
+                  <h2><%= link_to user.name, user %></h2>
+                  <p><%= link_to "#{"Follower".pluralize(user.get_upvotes.size)} #{user.get_upvotes.size}", follower_path(user.id), class: "btn btn-default"  %> <%= link_to "#{"Following".pluralize((user.get_up_voted User).length).singularize} #{(user.get_up_voted User).length}", following_path(user.id), class: "btn btn-default"  %></p>
+                  <% if user_signed_in? && @user.id === current_user.id %>
+                    <% if current_user.voted_up_on? user %>
+                      <%= link_to "Unfollow", dislike_user_path(user), method: :get, class: "btn btn-default" %>
+                    <% else %>
+                      <%= link_to "Follow", like_user_path(user), method: :get, class: "btn btn-default" %>
+                    <% end %>
+                  <% end%>
+
+                  <%if user_signed_in? %>
+                    <% if user.voted_up_on? current_user %>
+                      <div style="text-align:center; margin-top: 5px;">
+                        <span class="cbspan">Follows You.</span>
+                      </div>
+                    <% end %>
+                  <% end %>
+
+                </div>
+              </div>
+            </div>
+          <% end %>    
+        <% end %>
+    </div>
+    </div>
+    </div>
+  
+</div>

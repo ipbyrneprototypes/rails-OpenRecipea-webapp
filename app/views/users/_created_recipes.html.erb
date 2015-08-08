@@ -1,0 +1,92 @@
+
+<div class="col-md-12">
+  <br>
+  <div class="row transitions-enabled">
+    <div id="recipesmasonry" class="recipepanel">
+      
+      <% if user_signed_in? && current_user.id === @user.id %>  
+      
+      
+      
+            <% @recipes.each do |recipe| %>
+
+                <% if @user.voted_up_on? recipe %>
+                  <div class="box panel panel-default">
+                    <div class="recipe" style="max-height: 360px; min-height: 360px;">
+                      <div class="image_wrapper">
+                        <%= link_to recipe do %>
+                          <%= image_tag recipe.image.url(:medium), class: "thumb" %>
+                        <% end %>
+                      </div>
+                      <div style="text-align:center;">
+                        <h2><%= link_to truncate(recipe.title, length: 30), recipe %></h2>
+                        <span class="cbspan">Category: <%= recipe.category.name %></span>
+                        <br>  
+                        <p><i class="fa fa-comments"></i> <%= pluralize(recipe.reviews.length, 'Review' ) %></p>
+                        <div class="star-rating indexstars" data-score= <%= recipe.reviews.average(:rating) %> ></div>
+                        <span class="cbspan">Liked by <%= @user.name %> </span>
+                        <% if user_signed_in? %>  
+                          <% if current_user.voted_up_on? recipe %>
+                              <p><i class="fa fa-heart"></i> <%= pluralize(recipe.get_upvotes.size, 'Like' ) %></p>
+                              <span class="cbspan"><%= link_to "Unlike", dislike_recipe_path(recipe),  method: :get %></span>
+                              <br>
+                          <% end %>
+                        <% else %>
+                          <p><i class="fa fa-heart-o"></i> <%= pluralize(recipe.get_upvotes.size, 'Like' ) %></p>  
+                        <% end %>
+                        <br>
+                        <span class="cbspan">Created by  <%= link_to recipe.user.name, user_path(recipe.user) %> <%= time_ago_in_words(recipe.created_at) %> ago.</span>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+      
+      <% else %>
+      
+           <% @recipes.each do |recipe| %>
+                <% if recipe.privacy.id === 1 %>
+
+
+                <% if @user.voted_up_on? recipe %>
+                  <div class="box panel panel-default">
+                    <div class="recipe" style="max-height: 360px; min-height: 360px;">
+                      <div class="image_wrapper">
+                        <%= link_to recipe do %>
+                          <%= image_tag recipe.image.url(:medium), class: "thumb" %>
+                        <% end %>
+                      </div>
+                      <div style="text-align:center;">
+                        <h2><%= link_to truncate(recipe.title, length: 30), recipe %></h2>
+                        <span class="cbspan">Category: <%= recipe.category.name %></span>
+                        <br>  
+                        <p><i class="fa fa-comments"></i> <%= pluralize(recipe.reviews.length, 'Review' ) %></p>
+                        <div class="star-rating indexstars" data-score= <%= recipe.reviews.average(:rating) %> ></div>
+                        <span class="cbspan">Liked by <%= @user.name %></span>
+                        <% if user_signed_in? %>  
+                          <% if current_user.voted_up_on? recipe %>
+                              <p><i class="fa fa-heart"></i> <%= pluralize(recipe.get_upvotes.size, 'Like' ) %></p>
+                              <span class="cbspan"><%= link_to "Unlike", dislike_recipe_path(recipe),  method: :get %></span>
+                              <br>
+                          <% else %>
+                            <p><i class="fa fa-heart"></i> <%= pluralize(recipe.get_upvotes.size, 'Like' ) %></p>
+                            <span class="cbspan"><%= link_to "Like", like_recipe_path(recipe),  method: :get %></span>
+                            <br>
+                          <% end %>
+                        <% else %>
+                          <p><i class="fa fa-heart-o"></i> <%= pluralize(recipe.get_upvotes.size, 'Like' ) %></p>  
+                        <% end %>
+                        <span class="cbspan">Created by  <%= link_to recipe.user.name, user_path(recipe.user) %> <%= time_ago_in_words(recipe.created_at) %> ago.</span>
+                        <br>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+        <% end %>
+      <% end %> 
+   </div>
+  <br>
+  <br>
+  </div>
+</div>  
